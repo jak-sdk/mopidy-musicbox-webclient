@@ -1,17 +1,144 @@
 [build-system]
-requires = ["setuptools >= 30.3.0", "wheel"]
+requires = ["setuptools >= 78", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "Mopidy-MusicBox-Webclient"
+description = "Mopidy MusicBox web extension"
+readme = "README.rst"
+requires-python = ">= 3.11"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Wouter van Wijk", email = "woutervanwijk@gmail.com" },
+]
+classifiers = [
+    "Environment :: No Input/Output (Daemon)",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Multimedia :: Sound/Audio :: Players",
+]
+version = "3.1.0"
+dependencies = [
+    "Mopidy >= 3.0.0",
+    "Pykka >= 2.0.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/pimusicbox/mopidy-musicbox-webclient"
+Repository = "https://github.com/pimusicbox/mopidy-musicbox-webclient"
+Changelog = "https://github.com/pimusicbox/mopidy-musicbox-webclient/blob/develop/CHANGELOG.rst"
+
+[project.entry-points."mopidy.ext"]
+musicbox_webclient = "mopidy_musicbox_webclient:Extension"
+
+[project.optional-dependencies]
+# Kept for tools that still use extras (e.g. tox `.[test]`). Prefer
+# dependency-groups with uv when possible.
+lint = [
+    "black",
+    "check-manifest",
+    "flake8",
+    "flake8-bugbear",
+    "flake8-import-order",
+    "isort[pyproject]",
+]
+release = [
+    "twine",
+    "build",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+node = [
+    "nodeenv",
+]
+
+
+[dependency-groups]
+dev = [
+    { include-group = "lint" },
+    { include-group = "release" },
+    { include-group = "test" },
+    { include-group = "node" },
+]
+lint = [
+    "black",
+    "check-manifest",
+    "flake8",
+    "flake8-bugbear",
+    "flake8-import-order",
+    "isort[pyproject]",
+]
+release = [
+    "twine",
+    "build",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+node = [
+    "nodeenv",
+]
+
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.packages.find]
+include = ["mopidy_musicbox_webclient*"]
+exclude = ["tests", "tests.*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.conf"]
+"mopidy_musicbox_webclient" = ["static/**"]
 
 
 [tool.black]
-target-version = ["py37", "py38"]
+target-version = ["py311", "py312", "py313"]
 line-length = 80
 
 
 [tool.isort]
+profile = "black"
 multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
-line_length = 88
+line_length = 80
 known_tests = "tests"
 sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,TESTS,LOCALFOLDER"
+
+
+[tool.check-manifest]
+ignore = [
+    "screenshots",
+    "screenshots/*",
+    "REVIVING.md",
+    "uv.lock",
+]
+
+
+[tool.coverage.run]
+source_pkgs = ["mopidy_musicbox_webclient"]
+omit = [
+    "*/pyshared/*",
+    "*/python?.?/*",
+    "*/site-packages/nose/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

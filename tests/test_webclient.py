@@ -1,24 +1,21 @@
 import unittest
 from unittest import mock
 
-import mopidy.config as mopidy_config
 from mopidy_musicbox_webclient import Extension
 from mopidy_musicbox_webclient.webclient import Webclient
 
 
 class WebclientTests(unittest.TestCase):
     def setUp(self):
-        config = mopidy_config.Proxy(
-            {
-                "musicbox_webclient": {
-                    "enabled": True,
-                    "musicbox": False,
-                    "websocket_host": "host_mock",
-                    "websocket_port": 999,
-                },
-                "alarmclock": {"enabled": True},
-            }
-        )
+        config = {
+            "musicbox_webclient": {
+                "enabled": True,
+                "musicbox": False,
+                "websocket_host": "host_mock",
+                "websocket_port": 999,
+            },
+            "alarmclock": {"enabled": True},
+        }
 
         self.ext = Extension()
         self.mmw = Webclient(config)
@@ -33,16 +30,14 @@ class WebclientTests(unittest.TestCase):
         )
 
     def test_get_websocket_url_uses_request_host(self):
-        config = mopidy_config.Proxy(
-            {
-                "musicbox_webclient": {
-                    "enabled": True,
-                    "musicbox": False,
-                    "websocket_host": "",
-                    "websocket_port": 999,
-                }
+        config = {
+            "musicbox_webclient": {
+                "enabled": True,
+                "musicbox": False,
+                "websocket_host": "",
+                "websocket_port": 999,
             }
-        )
+        }
 
         request_mock = mock.Mock(spec="tornado.HTTPServerRequest")
         request_mock.host = "127.0.0.1"
@@ -55,17 +50,15 @@ class WebclientTests(unittest.TestCase):
         )
 
     def test_get_websocket_url_uses_http_port(self):
-        config = mopidy_config.Proxy(
-            {
-                "http": {"port": 999},
-                "musicbox_webclient": {
-                    "enabled": True,
-                    "musicbox": False,
-                    "websocket_host": "127.0.0.1",
-                    "websocket_port": "",
-                },
-            }
-        )
+        config = {
+            "http": {"port": 999},
+            "musicbox_webclient": {
+                "enabled": True,
+                "musicbox": False,
+                "websocket_host": "127.0.0.1",
+                "websocket_port": "",
+            },
+        }
 
         request_mock = mock.Mock(spec="tornado.HTTPServerRequest")
         request_mock.host = "127.0.0.1"
