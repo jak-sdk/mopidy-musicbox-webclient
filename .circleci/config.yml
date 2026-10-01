@@ -8,8 +8,6 @@ workflows:
   test:
     jobs:
       - py313
-      - py312
-      - py311
       - black
       - check-manifest
       - flake8
@@ -40,16 +38,6 @@ jobs:
           file: coverage.xml
       - store_test_results:
           path: test-results
-
-  py312:
-    <<: *test-template
-    docker:
-      - image: cimg/python:3.12
-
-  py311:
-    <<: *test-template
-    docker:
-      - image: cimg/python:3.11
 
   black: *test-template
 

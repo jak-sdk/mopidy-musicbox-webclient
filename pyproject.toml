@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 name = "Mopidy-MusicBox-Webclient"
 description = "Mopidy MusicBox web extension"
 readme = "README.rst"
-requires-python = ">= 3.11"
+requires-python = ">= 3.13"
 license = { text = "Apache-2.0" }
 authors = [
     { name = "Wouter van Wijk", email = "woutervanwijk@gmail.com" },
@@ -18,15 +18,13 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Multimedia :: Sound/Audio :: Players",
 ]
 version = "3.1.0"
 dependencies = [
-    "Mopidy >= 3.0.0",
+    "Mopidy >= 4.0.3",
     "Pykka >= 2.0.1",
 ]
 
@@ -97,7 +95,7 @@ include = ["mopidy_musicbox_webclient*"]
 
 
 [tool.black]
-target-version = ["py311", "py312", "py313"]
+target-version = ["py313", "py314"]
 line-length = 80
 
 

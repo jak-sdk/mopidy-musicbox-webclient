@@ -23,7 +23,7 @@ and recent setuptools (82+) removed `pkg_resources` entirely.
 3. **Packaging** — moved metadata, deps, and the `mopidy.ext` entry point into
    `pyproject.toml`; removed `setup.py` / `setup.cfg`. Package lives under
    `src/`. Dev tools use uv dependency groups (`test`, `lint`, …).
-   Requires Python >= 3.11.
+   Requires Python >= 3.13 and Mopidy >= 4.0.3.
 
 There is still **no separate frontend build** for normal use: the JS/CSS under
 `src/mopidy_musicbox_webclient/static/` is served as-is.

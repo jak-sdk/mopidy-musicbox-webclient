@@ -40,7 +40,9 @@ Dependencies
 - MMW has been tested on the major browsers (Chrome, IE, Firefox, Safari, iOS). It *may* also work on other browsers
   that support websockets, cookies, and JavaScript.
 
-- ``Mopidy`` >= 3.0.0. An extensible music server that plays music from local disk, Spotify, SoundCloud, Google
+- Python >= 3.13.
+
+- ``Mopidy`` >= 4.0.3. An extensible music server that plays music from local disk, Spotify, SoundCloud, Google
   Play Music, and more.
 
 Installation
