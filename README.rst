@@ -14,10 +14,6 @@ Mopidy-MusicBox-Webclient
     :target: https://codecov.io/gh/pimusicbox/mopidy-musicbox-webclient
     :alt: Test coverage
 
-.. image:: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
-    :target: http://standardjs.com/
-    :alt: JavaScript Standard Style
-
 Mopidy MusicBox Webclient (MMW) is a frontend extension and JavaScript-based web client especially written for
 `Mopidy <http://www.mopidy.com/>`_.
 

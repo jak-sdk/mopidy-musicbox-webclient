@@ -57,9 +57,6 @@ test = [
     "pytest",
     "pytest-cov",
 ]
-node = [
-    "nodeenv",
-]
 
 
 [dependency-groups]
@@ -67,7 +64,6 @@ dev = [
     { include-group = "lint" },
     { include-group = "release" },
     { include-group = "test" },
-    { include-group = "node" },
 ]
 lint = [
     "black",
@@ -85,9 +81,6 @@ test = [
     "pytest",
     "pytest-cov",
 ]
-node = [
-    "nodeenv",
-]
 
 
 [tool.setuptools]
@@ -95,8 +88,8 @@ include-package-data = true
 zip-safe = false
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = ["mopidy_musicbox_webclient*"]
-exclude = ["tests", "tests.*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.conf"]
@@ -127,6 +120,9 @@ ignore = [
     "uv.lock",
 ]
 
+
+[tool.coverage.paths]
+source = ["src/", "*/site-packages/"]
 
 [tool.coverage.run]
 source_pkgs = ["mopidy_musicbox_webclient"]

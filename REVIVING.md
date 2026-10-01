@@ -17,15 +17,16 @@ and recent setuptools (82+) removed `pkg_resources` entirely.
 ## What we changed
 
 1. **Version lookup** — switched to `importlib.metadata.version(...)` in
-   `mopidy_musicbox_webclient/__init__.py` (same approach as current Mopidy).
+   `src/mopidy_musicbox_webclient/__init__.py` (same approach as current Mopidy).
 2. **Runtime deps** — dropped the `setuptools` runtime requirement (no longer
    needed once `pkg_resources` is gone).
 3. **Packaging** — moved metadata, deps, and the `mopidy.ext` entry point into
-   `pyproject.toml`; removed `setup.py` / `setup.cfg`. Dev tools use uv
-   dependency groups (`test`, `lint`, …). Requires Python >= 3.11.
+   `pyproject.toml`; removed `setup.py` / `setup.cfg`. Package lives under
+   `src/`. Dev tools use uv dependency groups (`test`, `lint`, …).
+   Requires Python >= 3.11.
 
 There is still **no separate frontend build** for normal use: the JS/CSS under
-`mopidy_musicbox_webclient/static/` is served as-is.
+`src/mopidy_musicbox_webclient/static/` is served as-is.
 
 ## Build a wheel (usual workflow)
 
@@ -68,16 +69,12 @@ uv venv --system-site-packages
 uv sync --group test
 ```
 
-**Known gap:** against Mopidy 4, most tests still fail because `mopidy.config.Proxy`
-was removed. Extension load / serving still works; tests need updating for Mopidy 4’s
-config API.
+Tests already use plain dict configs (Mopidy 4 removed `mopidy.config.Proxy`).
 
 ## Longer-term modernisation (not done yet)
 
-- Align further with Mopidy’s extension template (`src/` layout, setuptools-scm,
-  ruff/pyright): https://docs.mopidy.com/stable/guides/extensiondev/
-- Fix tests for Mopidy 4
-- Refresh or drop the legacy JS toolchain (`package.json` / karma / phantomjs / tox node envs)
+- Adopt setuptools-scm / ruff / pyright from Mopidy’s extension template:
+  https://docs.mopidy.com/stable/guides/extensiondev/
 
 ## Alternatives (if you only need a UI)
 

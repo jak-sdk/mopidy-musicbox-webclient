@@ -850,9 +850,6 @@ lint = [
     { name = "flake8-import-order" },
     { name = "isort" },
 ]
-node = [
-    { name = "nodeenv" },
-]
 release = [
     { name = "build" },
     { name = "twine" },
@@ -871,7 +868,6 @@ dev = [
     { name = "flake8-bugbear" },
     { name = "flake8-import-order" },
     { name = "isort" },
-    { name = "nodeenv" },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "twine" },
@@ -883,9 +879,6 @@ lint = [
     { name = "flake8-bugbear" },
     { name = "flake8-import-order" },
     { name = "isort" },
-]
-node = [
-    { name = "nodeenv" },
 ]
 release = [
     { name = "build" },
@@ -906,13 +899,12 @@ requires-dist = [
     { name = "flake8-import-order", marker = "extra == 'lint'" },
     { name = "isort", extras = ["pyproject"], marker = "extra == 'lint'" },
     { name = "mopidy", specifier = ">=3.0.0" },
-    { name = "nodeenv", marker = "extra == 'node'" },
     { name = "pykka", specifier = ">=2.0.1" },
     { name = "pytest", marker = "extra == 'test'" },
     { name = "pytest-cov", marker = "extra == 'test'" },
     { name = "twine", marker = "extra == 'release'" },
 ]
-provides-extras = ["lint", "release", "test", "node"]
+provides-extras = ["lint", "release", "test"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -923,7 +915,6 @@ dev = [
     { name = "flake8-bugbear" },
     { name = "flake8-import-order" },
     { name = "isort", extras = ["pyproject"] },
-    { name = "nodeenv" },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "twine" },
@@ -936,7 +927,6 @@ lint = [
     { name = "flake8-import-order" },
     { name = "isort", extras = ["pyproject"] },
 ]
-node = [{ name = "nodeenv" }]
 release = [
     { name = "build" },
     { name = "twine" },
@@ -996,15 +986,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/4b/6a/478f153f1d7c0baaa3d1e8bb5fdcee3a6235f90fe44ea969a9d4e2b8c47a/nh3-0.3.7-cp38-abi3-win32.whl", hash = "sha256:6e4280115d44c3b278eef712a86748c1a723105cd79feec46952383117ab4e59", size = 630729, upload-time = "2026-08-23T14:26:26.932Z" },
     { url = "https://files.pythonhosted.org/packages/b4/b9/34433ccb1f0fe6968dabbb7d4bf5721c6221878ef07832748c06655a6a80/nh3-0.3.7-cp38-abi3-win_amd64.whl", hash = "sha256:618e3059caf41ccdf5dcccb3fa9df4cf6e4efe23d1382a8bbfca272a8a4f8bfc", size = 644462, upload-time = "2026-08-23T14:26:28.294Z" },
     { url = "https://files.pythonhosted.org/packages/f9/70/e140dffff6e808dc6343598df76e7e2407fd0f581de3524c75fba2e0cf24/nh3-0.3.7-cp38-abi3-win_arm64.whl", hash = "sha256:f04b7d333b27f13ca439da3cf1c75c2fba34f104969f6ce4ac8e7079699c2f4a", size = 621867, upload-time = "2026-08-23T14:26:29.547Z" },
-]
-
-[[package]]
-name = "nodeenv"
-version = "1.11.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/9a/8e/105de02c1322cfada6d9710d9146ef8026419d433c9d08359a2d35805811/nodeenv-1.11.0.tar.gz", hash = "sha256:3ce8fe5b71d16e8af7039ca65257354100bc772965d6bc549070649e53b1b146", size = 99301, upload-time = "2026-09-26T11:29:21.367Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/54/c8/12811c9b48fde162bb72b6f2e78fada9a247a09d7bb5be2050a5d099c77b/nodeenv-1.11.0-py2.py3-none-any.whl", hash = "sha256:edaa16e6c14d7cf395d75d4bbd5a26390f4dc06501a33b4e76282b02cc688a25", size = 34277, upload-time = "2026-09-26T11:29:19.933Z" },
 ]
 
 [[package]]
