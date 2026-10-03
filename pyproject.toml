@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools >= 78", "wheel"]
+requires = ["setuptools >= 78", "setuptools-scm >= 8.2"]
 build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "Mopidy-MusicBox-Webclient"
+name = "mopidy-musicbox-webclient"
 description = "Mopidy MusicBox web extension"
 readme = "README.rst"
 requires-python = ">= 3.13"
@@ -22,10 +22,10 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Topic :: Multimedia :: Sound/Audio :: Players",
 ]
-version = "3.1.0"
+dynamic = ["version"]
 dependencies = [
-    "Mopidy >= 4.0.3",
-    "Pykka >= 2.0.1",
+    "mopidy >= 4.0.3",
+    "pykka >= 4.1",
 ]
 
 [project.urls]
@@ -36,26 +36,6 @@ Changelog = "https://github.com/pimusicbox/mopidy-musicbox-webclient/blob/develo
 [project.entry-points."mopidy.ext"]
 musicbox_webclient = "mopidy_musicbox_webclient:Extension"
 
-[project.optional-dependencies]
-# Kept for tools that still use extras (e.g. tox `.[test]`). Prefer
-# dependency-groups with uv when possible.
-lint = [
-    "black",
-    "check-manifest",
-    "flake8",
-    "flake8-bugbear",
-    "flake8-import-order",
-    "isort[pyproject]",
-]
-release = [
-    "twine",
-    "build",
-]
-test = [
-    "pytest",
-    "pytest-cov",
-]
-
 
 [dependency-groups]
 dev = [
@@ -63,22 +43,9 @@ dev = [
     { include-group = "release" },
     { include-group = "test" },
 ]
-lint = [
-    "black",
-    "check-manifest",
-    "flake8",
-    "flake8-bugbear",
-    "flake8-import-order",
-    "isort[pyproject]",
-]
-release = [
-    "twine",
-    "build",
-]
-test = [
-    "pytest",
-    "pytest-cov",
-]
+lint = ["ruff"]
+release = ["build", "twine"]
+test = ["pytest", "pytest-cov"]
 
 
 [tool.setuptools]
@@ -94,29 +61,40 @@ include = ["mopidy_musicbox_webclient*"]
 "mopidy_musicbox_webclient" = ["static/**"]
 
 
-[tool.black]
-target-version = ["py313", "py314"]
+[tool.setuptools_scm]
+# This section, even if empty, must be present for setuptools_scm to work
+
+
+[tool.ruff]
+target-version = "py313"
 line-length = 80
+extend-exclude = ["src/mopidy_musicbox_webclient/static"]
 
-
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-line_length = 80
-known_tests = "tests"
-sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,TESTS,LOCALFOLDER"
-
-
-[tool.check-manifest]
-ignore = [
-    "screenshots",
-    "screenshots/*",
-    "REVIVING.md",
-    "uv.lock",
+[tool.ruff.lint]
+select = [
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "E",  # pycodestyle errors
+    "F",  # pyflakes
+    "I",  # isort
+    "N",  # pep8-naming
+    "UP", # pyupgrade
+    "W",  # pycodestyle warnings
 ]
+
+[tool.ruff.lint.isort]
+known-first-party = ["mopidy_musicbox_webclient"]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "tests",
+    "local-folder",
+]
+
+[tool.ruff.lint.isort.sections]
+tests = ["tests"]
 
 
 [tool.coverage.paths]
@@ -124,11 +102,6 @@ source = ["src/", "*/site-packages/"]
 
 [tool.coverage.run]
 source_pkgs = ["mopidy_musicbox_webclient"]
-omit = [
-    "*/pyshared/*",
-    "*/python?.?/*",
-    "*/site-packages/nose/*",
-]
 
 [tool.coverage.report]
 show_missing = true
@@ -136,3 +109,7 @@ show_missing = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+filterwarnings = [
+    # Fail tests on warnings from our own code
+    "error:::mopidy_musicbox_webclient",
+]

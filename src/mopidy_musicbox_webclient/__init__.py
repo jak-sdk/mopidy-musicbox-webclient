@@ -3,12 +3,11 @@ from importlib.metadata import version
 
 from mopidy import config, ext
 
-__version__ = version("Mopidy-MusicBox-Webclient")
+__version__ = version("mopidy-musicbox-webclient")
 
 
 class Extension(ext.Extension):
-
-    dist_name = "Mopidy-MusicBox-Webclient"
+    dist_name = "mopidy-musicbox-webclient"
     ext_name = "musicbox_webclient"
     version = __version__
 
@@ -40,6 +39,7 @@ class Extension(ext.Extension):
 
     def factory(self, config, core):
         from tornado.web import RedirectHandler
+
         from .web import IndexHandler, StaticHandler
 
         path = pathlib.Path(__file__).parent / "static"

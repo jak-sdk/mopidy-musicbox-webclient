@@ -24,6 +24,10 @@ and recent setuptools (82+) removed `pkg_resources` entirely.
    `pyproject.toml`; removed `setup.py` / `setup.cfg`. Package lives under
    `src/`. Dev tools use uv dependency groups (`test`, `lint`, …).
    Requires Python >= 3.13 and Mopidy >= 4.0.3.
+4. **Tooling** — following Mopidy's extension template: the package version comes
+   from git tags via setuptools-scm (so `MANIFEST.in` / check-manifest are gone),
+   ruff replaces black / isort / flake8, and the distribution name is the
+   normalised `mopidy-musicbox-webclient`.
 
 There is still **no separate frontend build** for normal use: the JS/CSS under
 `src/mopidy_musicbox_webclient/static/` is served as-is.
@@ -32,14 +36,17 @@ There is still **no separate frontend build** for normal use: the JS/CSS under
 
 ```bash
 uv build --wheel
-# -> dist/mopidy_musicbox_webclient-3.1.0-py3-none-any.whl
+# -> dist/mopidy_musicbox_webclient-<version>-py3-none-any.whl
 ```
+
+The version is derived from the latest git tag (e.g. `3.1.1.dev9+g1a44049`
+between releases); tag a commit `vX.Y.Z` to cut a release.
 
 Copy the `.whl` to the Mopidy host, then:
 
 ```bash
-uv pip uninstall --python ~/mopidy/.venv/bin/python Mopidy-MusicBox-Webclient
-uv pip install --python ~/mopidy/.venv/bin/python ./mopidy_musicbox_webclient-3.1.0-py3-none-any.whl
+uv pip uninstall --python ~/mopidy/.venv/bin/python mopidy-musicbox-webclient
+uv pip install --python ~/mopidy/.venv/bin/python ./mopidy_musicbox_webclient-<version>-py3-none-any.whl
 ```
 
 Restart Mopidy and open:
@@ -71,9 +78,16 @@ uv sync --group test
 
 Tests already use plain dict configs (Mopidy 4 removed `mopidy.config.Proxy`).
 
+Lint and format:
+
+```bash
+uv run --group lint ruff check .
+uv run --group lint ruff format .
+```
+
 ## Longer-term modernisation (not done yet)
 
-- Adopt setuptools-scm / ruff / pyright from Mopidy’s extension template:
+- Pyright type checking, as in Mopidy’s extension template:
   https://docs.mopidy.com/stable/guides/extensiondev/
 
 ## Alternatives (if you only need a UI)

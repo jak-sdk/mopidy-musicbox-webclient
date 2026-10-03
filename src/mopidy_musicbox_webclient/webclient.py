@@ -27,17 +27,17 @@ class Webclient:
             if not host:
                 host = request.host.partition(":")[0]
                 logger.warning(
-                    "Mopidy websocket_host not specified, " "using %s", host
+                    "Mopidy websocket_host not specified, using %s", host
                 )
             elif not port:
                 port = self.config["http"]["port"]
                 logger.warning(
-                    "Mopidy websocket_port not specified, " "using %s", port
+                    "Mopidy websocket_port not specified, using %s", port
                 )
             protocol = "ws"
             if request.protocol == "https":
                 protocol = "wss"
-            ws_url = "%s://%s:%d/mopidy/ws" % (protocol, host, port)
+            ws_url = f"{protocol}://{host}:{port}/mopidy/ws"
 
         return ws_url
 
